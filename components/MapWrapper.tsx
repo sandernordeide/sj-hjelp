@@ -2,6 +2,10 @@
 
 import dynamic from "next/dynamic";
 
+interface MapWrapperProps {
+  centerTrigger?: number;
+}
+
 // Import Map dynamically to avoid SSR issues with Leaflet
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -12,6 +16,6 @@ const Map = dynamic(() => import("@/components/Map"), {
   ),
 });
 
-export default function MapWrapper() {
-  return <Map />;
+export default function MapWrapper({ centerTrigger }: MapWrapperProps) {
+  return <Map centerTrigger={centerTrigger} />;
 }

@@ -72,31 +72,28 @@ export default function AppPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-start mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground mb-4">
-            Velkommen {user.firstName}!
-          </h1>
-          <p className="text-lg text-foreground/80 mb-2">
-            Vi er med deg på båtturen, og følger din posisjon
-          </p>
-          <p className="text-foreground/70">
-            <strong>Din lokasjon er:</strong> {location.lat.toFixed(6)}, {location.lng.toFixed(6)}
-          </p>
-          <p className="text-lg font-semibold text-primary mt-2">God tur!</p>
-        </div>
-        <button
-          onClick={handleLogout}
-          className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-2 rounded-lg font-semibold transition-colors"
-        >
-          Logg ut
-        </button>
+    <div className="px-4 py-8">
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-foreground mb-4">
+          God tur, {user.firstName}
+        </h1>
+        <p className="text-lg text-foreground/80 mb-2">
+          Vi er med deg på båtturen, og følger din posisjon
+        </p>
+        <p className="text-foreground/70">
+          <strong>Din lokasjon er:</strong>{" "}
+          <button
+            onClick={() => setCenterTrigger(prev => prev + 1)}
+            className="text-primary hover:text-primary-hover underline font-semibold"
+          >
+            {location.lat.toFixed(3)}, {location.lng.toFixed(3)}
+          </button>
+        </p>
       </div>
 
       {/* Map */}
       <div className="bg-white rounded-lg shadow-lg p-4">
-        <MapWrapper />
+        <MapWrapper centerTrigger={centerTrigger} />
       </div>
     </div>
   );

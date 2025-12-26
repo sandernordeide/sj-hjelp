@@ -1,6 +1,6 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect } from "react";
@@ -41,7 +41,25 @@ interface Boat {
   lng: number;
 }
 
-export default function Map() {
+interface MapProps {
+  centerTrigger?: number;
+}
+
+// Component to programmatically control map
+function MapController({ centerTrigger }: { centerTrigger?: number }) {
+  const map = useMap();
+  const userLocation: [number, number] = [61.212322, 6.076083];
+
+  useEffect(() => {
+    if (centerTrigger) {
+      map.setView(userLocation, 15, { animate: true, duration: 1 });
+    }
+  }, [centerTrigger, map]);
+
+  return null;
+}
+
+export default function Map({ centerTrigger }: MapProps) {
   // User location
   const userLocation: [number, number] = [61.212322, 6.076083];
   
@@ -75,6 +93,8 @@ export default function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         
+        <MapController centerTrigger={centerTrigger} />
+        
         {/* User location */}
         <Marker position={userLocation} icon={userIcon}>
           <Popup>
@@ -83,11 +103,6 @@ export default function Map() {
             </div>
           </Popup>
         </Marker>
-        <Circle
-          center={userLocation}
-          radius={50}
-          pathOptions={{ color: "blue", fillColor: "blue", fillOpacity: 0.2 }}
-        />
         
         {/* Boats */}
         {boats.map((boat) => (
