@@ -63,11 +63,6 @@ export default function AppPage() {
     }
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    router.push("/login");
-  };
-
   if (loading || !user || !location) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
