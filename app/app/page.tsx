@@ -18,6 +18,7 @@ export default function AppPage() {
   const [user, setUser] = useState<UserData | null>(null);
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [centerTrigger, setCenterTrigger] = useState(0);
 
   useEffect(() => {
     // Check if user is logged in
