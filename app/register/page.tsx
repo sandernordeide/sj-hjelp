@@ -24,9 +24,11 @@ export default function RegisterPage() {
 
     // Store user data in localStorage for now
     localStorage.setItem("user", JSON.stringify(formData));
+    // Auto-login after registration
+    localStorage.setItem("isLoggedIn", "true");
     
     setLoading(false);
-    router.push("/");
+    router.push("/app");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
